@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Student Fees Management System{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        .sidebar {
+            height: 100vh;
+            background-color: #343a40;
+            color: white;
+        }
+        .sidebar a {
+            color: #adb5bd;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+            color: white;
+        }
+        .sidebar a.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .content {
+            padding: 20px;
+        }
+        .system-title {
+            background-color: #0c3270;
+            color: #32ffc7;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 p-0 sidebar">
+                <div class="system-title">
+                    Student Fees Management
+                </div>
+                <div class="py-2 px-3">
+                    Logged in as: {{ current_user.username }}
+                </div>
+                <hr>
+                <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint == 'dashboard' else '' }}">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="{{ url_for('register_student') }}" class="{{ 'active' if request.endpoint == 'register_student' else '' }}">
+                    <i class="bi bi-person-plus"></i> Register Student
+                </a>
+                <a href="{{ url_for('students_list') }}" class="{{ 'active' if request.endpoint == 'students_list' else '' }}">
+                    <i class="bi bi-people"></i> Students
+                </a>
+                <a href="{{ url_for('fee_types') }}" class="{{ 'active' if request.endpoint == 'fee_types' else '' }}">
+                    <i class="bi bi-cash-stack"></i> Fee Types
+                </a>
+                <a href="{{ url_for('make_payment') }}" class="{{ 'active' if request.endpoint == 'make_payment' else '' }}">
+                    <i class="bi bi-credit-card"></i> Make Payment
+                </a>
+                <a href="{{ url_for('payments_list') }}" class="{{ 'active' if request.endpoint == 'payments_list' else '' }}">
+                    <i class="bi bi-receipt"></i> Payment Records
+                </a>
+                <hr>
+                <a href="{{ url_for('logout') }}">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </a>
+            </div>
+            <!-- Main Content -->
+            <div class="col-md-10 content">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="container mt-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block auth_content %}{% endblock %}
+    </div>
+    {% endif %}
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Register Student - Student Fees Management System{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Register New Student</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Student Registration Form</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-control") }}
+                        {% if form.name.errors %}
+                            {% for error in form.name.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.date_of_birth.label(class="form-label") }}
+                        {{ form.date_of_birth(class="form-control", type="date") }}
+                        {% if form.date_of_birth.errors %}
+                            {% for error in form.date_of_birth.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.phone_no.label(class="form-label") }}
+                        {{ form.phone_no(class="form-control") }}
+                        {% if form.phone_no.errors %}
+                            {% for error in form.phone_no.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-control") }}
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> A unique admission number will be generated automatically.
+                            <br>
+                            The student's initial password will be set to their phone number.
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Instructions</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Fill in all required fields.</li>
+                    <li class="list-group-item">Ensure email address is valid as it will be used for login.</li>
+                    <li class="list-group-item">Phone number format: Country code + Number (e.g., +1234567890)</li>
+                    <li class="list-group-item">Student can use their email as username and phone number as password for first login.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
