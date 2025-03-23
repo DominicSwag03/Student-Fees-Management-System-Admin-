@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Fee Type - Student Fees Management System{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Add New Fee Type</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Fee Type Details</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-control") }}
+                        {% if form.name.errors %}
+                            {% for error in form.name.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.description.label(class="form-label") }}
+                        {{ form.description(class="form-control", rows=3) }}
+                        {% if form.description.errors %}
+                            {% for error in form.description.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.amount.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            {{ form.amount(class="form-control") }}
+                        </div>
+                        {% if form.amount.errors %}
+                            {% for error in form.amount.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.frequency.label(class="form-label") }}
+                        {{ form.frequency(class="form-select") }}
+                        {% if form.frequency.errors %}
+                            {% for error in form.frequency.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Instructions</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <h5>Fee Frequency Guide</h5>
+                    <ul>
+                        <li><strong>Monthly:</strong> Collected every month</li>
+                        <li><strong>Quarterly:</strong> Collected every 3 months</li>
+                        <li><strong>Annually:</strong> Collected once a year</li>
+                        <li><strong>One Time:</strong> Collected only once (e.g., admission fee)</li>
+                    </ul>
+                </div>
+                <p>Be sure to provide a clear description for each fee type to avoid confusion.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

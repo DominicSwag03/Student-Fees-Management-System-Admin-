@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Make Payment - Student Fees Management System{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Record New Payment</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Payment Details</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        {{ form.student_id.label(class="form-label") }}
+                        {{ form.student_id(class="form-select") }}
+                        {% if form.student_id.errors %}
+                            {% for error in form.student_id.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.fee_type_id.label(class="form-label") }}
+                        {{ form.fee_type_id(class="form-select", id="feeTypeSelect") }}
+                        {% if form.fee_type_id.errors %}
+                            {% for error in form.fee_type_id.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.amount.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            {{ form.amount(class="form-control", id="amountInput", placeholder="Leave blank to use default fee amount") }}
+                        </div>
+                        {% if form.amount.errors %}
+                            {% for error in form.amount.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.month.label(class="form-label") }}
+                                {{ form.month(class="form-select") }}
+                                {% if form.month.errors %}
+                                    {% for error in form.month.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.year.label(class="form-label") }}
+                                {{ form.year(class="form-control") }}
+                                {% if form.year.errors %}
+                                    {% for error in form.year.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.payment_method.label(class="form-label") }}
+                        {{ form.payment_method(class="form-select") }}
+                        {% if form.payment_method.errors %}
+                            {% for error in form.payment_method.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.reference_no.label(class="form-label") }}
+                        {{ form.reference_no(class="form-control") }}
+                        {% if form.reference_no.errors %}
+                            {% for error in form.reference_no.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Payment Instructions</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <h5>Important Notes</h5>
+                    <ul>
+                        <li>Select the student making the payment.</li>
+                        <li>Choose the appropriate fee type.</li>
+                        <li>Amount field can be left blank to use the default fee amount.</li>
+                        <li>For monthly fees, select the relevant month.</li>
+                        <li>Reference number is optional but recommended for bank transfers and card payments.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+</script>
+{% endblock %}
